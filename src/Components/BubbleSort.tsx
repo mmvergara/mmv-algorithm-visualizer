@@ -6,7 +6,6 @@ import AlgSpeed from "./AlgSpeed";
 const BubbleSort: React.FC = () => {
   const [mainArr, setMainArr] = useState<number[]>(shuffleArray([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]));
   const [algSpeed, setAlgSpeed] = useState<algSpeed>({ ms: 250, speed: "Normal" });
-  const [actionDoing, setActionDoing] = useState("...");
   const [showControls, setShowControls] = useState(true);
 
   const [numBeingChecked, setNumBeingChecked] = useState<number[]>([]);
@@ -14,7 +13,6 @@ const BubbleSort: React.FC = () => {
   const [indexesDone, setIndexesDone] = useState<number[]>([]);
 
   const bubbleSort = async function () {
-    setActionDoing("Finding the lowest value");
     setShowControls(false);
     const arrP = mainArr.slice();
     for (let i = 0; i < arrP.length; i++) {
@@ -22,12 +20,10 @@ const BubbleSort: React.FC = () => {
 
       for (let j = 0; j < arrP.length - i; j++) {
         setNumBeingChecked([arrP[j], arrP[j - 1]]);
-        setActionDoing("Comparing two values");
         await delayMs(algSpeed.ms);
         if (arrP[j] < arrP[j - 1]) {
           setNumBeingChecked([]);
           setNumsBeingSwapped([arrP[j], arrP[j - 1]]);
-          setActionDoing("Swapping");
           let temp = arrP[j];
           arrP[j] = arrP[j - 1];
           arrP[j - 1] = temp;
@@ -39,7 +35,6 @@ const BubbleSort: React.FC = () => {
       }
       setIndexesDone((prev) => [...prev, arrP.length - 1 - i]);
       if (swapOperations === 0) {
-        setActionDoing("No swap operations occured = Array is sorted");
         delayMs(algSpeed.ms);
         const arr = Array.from(Array(arrP.length).keys());
         setIndexesDone(arr);
@@ -139,7 +134,6 @@ const BubbleSort: React.FC = () => {
           );
         })}
       </div>
-      <p className='text-center text-black text-2xl'>{!showControls && actionDoing}</p>
     </section>
   );
 };

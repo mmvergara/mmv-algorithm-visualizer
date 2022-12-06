@@ -6,54 +6,41 @@ import AlgSpeed from "./AlgSpeed";
 const InsertionSort: React.FC = () => {
   const [mainArr, setMainArr] = useState<number[]>(shuffleArray([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]));
   const [algSpeed, setAlgSpeed] = useState<algSpeed>({ ms: 250, speed: "Normal" });
-  const [actionDoing, setActionDoing] = useState("...");
   const [showControls, setShowControls] = useState(true);
 
-  const [numBeingChecked, setNumBeingChecked] = useState<number[]>([]);
+  const [numBeingChecked, setNumsBeingChecked] = useState<number[]>([]);
   const [numsBeingSwapped, setNumsBeingSwapped] = useState<number[]>([]);
   const [indexesDone, setIndexesDone] = useState<number[]>([]);
 
-  const bubbleSort = async function () {
-    setActionDoing("Finding the lowest value");
-    setShowControls(false);
-    const arrP = mainArr.slice();
-    for (let i = 0; i < arrP.length; i++) {
-      let swapOperations = 0;
-
-      for (let j = 0; j < arrP.length - i; j++) {
-        setNumBeingChecked([arrP[j], arrP[j - 1]]);
-        setActionDoing("Comparing two values");
+  const insertionSort = async function () {
+    const inputArr = mainArr.slice();
+    const indexesDone = [0];
+    for (let i = 1; i < inputArr.length; i++) {
+      let key = inputArr[i];
+      let j = i - 1;
+      setMainArr(inputArr);
+      setNumsBeingChecked([key]);
+      await delayMs(algSpeed.ms);
+      while (j >= 0 && inputArr[j] > key) {
+        setNumsBeingChecked([])
+        setNumsBeingSwapped([inputArr[j], inputArr[j + 1]]);
         await delayMs(algSpeed.ms);
-        if (arrP[j] < arrP[j - 1]) {
-          setNumBeingChecked([]);
-          setNumsBeingSwapped([arrP[j], arrP[j - 1]]);
-          setActionDoing("Swapping");
-          let temp = arrP[j];
-          arrP[j] = arrP[j - 1];
-          arrP[j - 1] = temp;
-          await delayMs(algSpeed.ms);
-          setNumsBeingSwapped([]);
-          setMainArr(arrP);
-          swapOperations++;
-        }
+        const temp = inputArr[j + 1];
+        inputArr[j + 1] = inputArr[j];
+        inputArr[j] = temp;
+        setMainArr(inputArr);
+        j = j - 1;
       }
-      setIndexesDone((prev) => [...prev, arrP.length - 1 - i]);
-      if (swapOperations === 0) {
-        setActionDoing("No swap operations occured = Array is sorted");
-        delayMs(algSpeed.ms);
-        const arr = Array.from(Array(arrP.length).keys());
-        setIndexesDone(arr);
-        break;
-      }
+      inputArr[j + 1] = key;
+      setMainArr(inputArr);
+      indexesDone.push(indexesDone.length);
+      setIndexesDone(indexesDone);
     }
-    setMainArr(arrP);
-    setNumBeingChecked([]);
-    setNumsBeingSwapped([]);
 
-    await delayMs(2000);
+    setNumsBeingChecked([]);
+    setNumsBeingSwapped([]);
     setIndexesDone([]);
-    setShowControls(true);
-    // setOperationOngoing(false)
+    return inputArr;
   };
 
   async function delayMs(algSpeed: number) {
@@ -97,7 +84,7 @@ const InsertionSort: React.FC = () => {
             <button className='btn btn-secondary' onClick={shuffleArrHandler}>
               Shuffle
             </button>
-            <button className='btn btn-accent' onClick={bubbleSort}>
+            <button className='btn btn-accent' onClick={insertionSort}>
               Sort
             </button>
           </>
@@ -123,12 +110,12 @@ const InsertionSort: React.FC = () => {
               style={{
                 height: `${(x / arr.length) * 100}%`,
                 backgroundColor: `${
-                  numBeingChecked.includes(x)
-                    ? "#411530"
-                    : numsBeingSwapped.length === 2 && numsBeingSwapped.includes(x)
+                  numsBeingSwapped.length === 2 && numsBeingSwapped.includes(x)
                     ? "#0b5402"
+                    : numBeingChecked.includes(x)
+                    ? "#411530"
                     : indexesDone.includes(i)
-                    ? "#4ee7eada"
+                    ? "#d5ea4eda"
                     : "#4bdcde9e"
                 }`,
                 transitionDuration: "0.3s",
@@ -139,7 +126,6 @@ const InsertionSort: React.FC = () => {
           );
         })}
       </div>
-      <p className='text-center text-black text-2xl'>{!showControls && actionDoing}</p>
     </section>
   );
 };

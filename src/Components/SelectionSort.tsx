@@ -6,7 +6,6 @@ import AlgSpeed from "./AlgSpeed";
 const SelectionSort: React.FC = () => {
   const [mainArr, setMainArr] = useState<number[]>(shuffleArray([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]));
   const [algSpeed, setAlgSpeed] = useState<algSpeed>({ ms: 250, speed: "Normal" });
-  const [actionDoing, setActionDoing] = useState("...");
   const [showControls, setShowControls] = useState(true);
 
   const [numBeingChecked, setNumBeingChecked] = useState<number>(0);
@@ -24,7 +23,6 @@ const SelectionSort: React.FC = () => {
         await delayMs(algSpeed.ms);
         setNumBeingChecked(arrP[j]);
         setNumsBeingSwapped([]);
-        setActionDoing("Finding the lowest value");
         if (arrP[lowestNumIndex] > arrP[j] || lowestNumIndex === -1000) {
           lowestNumIndex = j;
           setCurrentLowestNum(arrP[j]);
@@ -34,7 +32,6 @@ const SelectionSort: React.FC = () => {
       const set = [arrP[lowestNumIndex], arrP[lastSwapIndex]];
       setNumsBeingSwapped(set);
 
-      setActionDoing("Swapping");
       let temp = arrP[lowestNumIndex];
       arrP[lowestNumIndex] = arrP[lastSwapIndex];
       arrP[lastSwapIndex] = temp;
@@ -103,6 +100,7 @@ const SelectionSort: React.FC = () => {
           </button>
         )}
       </div>
+
       <div className='flex w-[100vw] h-[720px] py-[50px] items-end justify-center transition-all ease-in'>
         {mainArr.map((x, i, arr) => {
           return (
@@ -130,7 +128,7 @@ const SelectionSort: React.FC = () => {
           );
         })}
       </div>
-      <p className='text-center text-black text-2xl'>{!showControls && actionDoing}</p>
+      <p className='text-2xl p-1 text-center text-black'>Selection Sort</p>
     </section>
   );
 };
