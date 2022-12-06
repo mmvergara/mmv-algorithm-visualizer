@@ -10,7 +10,7 @@ const BubbleSortPage = lazy(() => import("./pages/BubbleSortPage"));
 const MergeSortPage = lazy(() => import("./pages/MergeSortPage"));
 const QuickSortPage = lazy(() => import("./pages/QuickSortPage"));
 const SelectionSortPage = lazy(() => import("./pages/SelectionSortPage"));
-const InsertionSortingPage = lazy(() => import("./pages/InsertionSortPage"));
+const InsertionSortingPage = lazy(() => import("./Components/InsertionSort"));
 
 function App() {
   return (
