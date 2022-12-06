@@ -3,45 +3,58 @@ import { algSpeed } from "../types";
 import { shuffleArray } from "../utilities/ShuffleArray";
 import AlgSpeed from "./AlgSpeed";
 
-const InsertionSort: React.FC = () => {
+const QuickSort: React.FC = () => {
   const [mainArr, setMainArr] = useState<number[]>(shuffleArray([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]));
   const [algSpeed, setAlgSpeed] = useState<algSpeed>({ ms: 250, speed: "Normal" });
   const [showControls, setShowControls] = useState(true);
-
-  const [numBeingChecked, setNumsBeingChecked] = useState<number[]>([]);
+  const [numBeingChecked, setNumBeingChecked] = useState<number>(0);
   const [numsBeingSwapped, setNumsBeingSwapped] = useState<number[]>([]);
-  const [indexesDone, setIndexesDone] = useState<number[]>([]);
+  const [curentLowestNum, setCurrentLowestNum] = useState<number>(0);
 
-  const insertionSort = async function () {
-    const arrP = mainArr.slice();
-    const indexesDone = [0];
-    for (let i = 1; i < arrP.length; i++) {
-      let key = arrP[i];
-      let j = i - 1;
-      setMainArr(arrP);
-      setNumsBeingChecked([key]);
-      await delayMs(algSpeed.ms);
-      while (j >= 0 && arrP[j] > key) {
-        setNumsBeingChecked([]);
-        setNumsBeingSwapped([arrP[j], arrP[j + 1]]);
+  async function partition(arr: number[], low: number, high: number) {
+    let temp;
+    let pivot = arr[high];
+    setNumsBeingSwapped([pivot]);
+    let i = low - 1;
+    for (let j = low; j <= high - 1; j++) {
+      setNumBeingChecked(arr[j]);
+      if (arr[j] <= pivot) {
+        i++;
+        setNumsBeingSwapped([arr[i], arr[j]]);
         await delayMs(algSpeed.ms);
-        const temp = arrP[j + 1];
-        arrP[j + 1] = arrP[j];
-        arrP[j] = temp;
-        setMainArr(arrP);
-        j = j - 1;
+        await delayMs(algSpeed.ms);
+        temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
       }
-      arrP[j + 1] = key;
-      setMainArr(arrP);
-      indexesDone.push(indexesDone.length);
-      setIndexesDone(indexesDone);
     }
+    setNumsBeingSwapped([arr[i + 1], arr[high]]);
+    await delayMs(algSpeed.ms);
+    await delayMs(algSpeed.ms);
+    temp = arr[i + 1];
+    arr[i + 1] = arr[high];
+    arr[high] = temp;
+    return i + 1;
+  }
 
-    setNumsBeingChecked([]);
-    setNumsBeingSwapped([]);
-    setIndexesDone([]);
-    return arrP;
-  };
+  async function qSort(arr: number[], low: number, high: number) {
+    setShowControls(false);
+
+    setMainArr(arr);
+    if (low < high) {
+      let pi = await partition(arr, low, high);
+      setNumsBeingSwapped([]);
+      await qSort(arr, low, pi - 1);
+      await qSort(arr, pi + 1, high);
+    }
+    const isSorted = (arr: number[]) => arr.every((v, i, a) => !i || a[i - 1] <= v);
+    if (isSorted(arr)) {
+      setNumBeingChecked(0);
+      setNumsBeingSwapped([]);
+      setCurrentLowestNum(0);
+      setShowControls(true);
+    }
+  }
 
   async function delayMs(algSpeed: number) {
     return new Promise((res, rej) => {
@@ -50,10 +63,7 @@ const InsertionSort: React.FC = () => {
       }, algSpeed);
     });
   }
-  const updateAlgSpeedHandler = (algSpeed: algSpeed) => {
-    console.log(algSpeed);
-    setAlgSpeed(algSpeed);
-  };
+  const updateAlgSpeedHandler = (algSpeed: algSpeed) => setAlgSpeed(algSpeed);
   const shuffleArrHandler = () => setMainArr((arr) => shuffleArray(arr));
   const changeArrSizeHandle = (e: React.ChangeEvent<HTMLInputElement>) => {
     const arraySize = Number(e.target.value);
@@ -84,7 +94,12 @@ const InsertionSort: React.FC = () => {
             <button className='btn btn-secondary' onClick={shuffleArrHandler}>
               Shuffle
             </button>
-            <button className='btn btn-accent' onClick={insertionSort}>
+            <button
+              className='btn btn-accent'
+              onClick={() => {
+                qSort(mainArr.slice(), 0, mainArr.length - 1);
+              }}
+            >
               Sort
             </button>
           </>
@@ -99,6 +114,7 @@ const InsertionSort: React.FC = () => {
           </button>
         )}
       </div>
+
       <div className='flex w-[100vw] h-[720px] py-[50px] items-end justify-center transition-all ease-in'>
         {mainArr.map((x, i, arr) => {
           return (
@@ -110,12 +126,12 @@ const InsertionSort: React.FC = () => {
               style={{
                 height: `${(x / arr.length) * 100}%`,
                 backgroundColor: `${
-                  numsBeingSwapped.length === 2 && numsBeingSwapped.includes(x)
-                    ? "#0b5402"
-                    : numBeingChecked.includes(x)
+                  numBeingChecked === x
                     ? "#411530"
-                    : indexesDone.includes(i)
-                    ? "#d5ea4eda"
+                    : numsBeingSwapped.length === 2 && numsBeingSwapped.includes(x)
+                    ? "#146c0a"
+                    : curentLowestNum === x
+                    ? "#de4b4b"
                     : "#4bdcde9e"
                 }`,
                 transitionDuration: "0.3s",
@@ -126,9 +142,9 @@ const InsertionSort: React.FC = () => {
           );
         })}
       </div>
-      <p className='text-2xl p-1 text-center text-black font-serif'>Insertion Sort</p>
+      <p className='text-2xl p-1 text-center text-black font-serif'>Quick Sort</p>
     </section>
   );
 };
 
-export default InsertionSort;
+export default QuickSort;

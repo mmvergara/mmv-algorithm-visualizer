@@ -134,6 +134,7 @@ const BubbleSort: React.FC = () => {
           );
         })}
       </div>
+      <p className='text-2xl p-1 text-center text-black font-serif'>Bubble Sort</p>
     </section>
   );
 };

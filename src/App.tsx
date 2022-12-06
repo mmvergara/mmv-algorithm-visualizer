@@ -5,6 +5,7 @@ import Navbar from "./Layout/Navbar";
 import BubbleSortPage from "./pages/BubbleSortPage";
 import HomePage from "./pages/HomePage";
 import InsertionSortPage from "./pages/InsertionSortpage";
+import QuickSortPage from "./pages/QuickSortPage";
 import SelectionSortPage from "./pages/SelectionSortPage";
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
         <Route path='/sort/bubble' element={<BubbleSortPage />} />
         <Route path='/sort/selection' element={<SelectionSortPage />} />
         <Route path='/sort/insertion' element={<InsertionSortPage />} />
+        <Route path='/sort/quick' element={<QuickSortPage/>}/>
       </Routes>
       <Footer/>
     </>

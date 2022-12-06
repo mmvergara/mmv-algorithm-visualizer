@@ -128,7 +128,7 @@ const SelectionSort: React.FC = () => {
           );
         })}
       </div>
-      <p className='text-2xl p-1 text-center text-black'>Selection Sort</p>
+      <p className='text-2xl p-1 text-center text-black font-serif'>Selection Sort</p>
     </section>
   );
 };
