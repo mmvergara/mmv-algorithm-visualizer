@@ -2,14 +2,14 @@ import { Route, Routes } from "react-router-dom";
 import { lazy, Suspense } from "react";
 import Footer from "./Layout/Footer";
 import Navbar from "./Layout/Navbar";
-import HomePage from "./pages/HomePage";
+import HomePage from "./Components/HomePage";
 import Loading from "./Components/Loading";
 import "./App.css";
 
-const BubbleSortPage = lazy(() => import("./pages/BubbleSortPage"));
-const MergeSortPage = lazy(() => import("./pages/MergeSortPage"));
-const QuickSortPage = lazy(() => import("./pages/QuickSortPage"));
-const SelectionSortPage = lazy(() => import("./pages/SelectionSortPage"));
+const BubbleSortPage = lazy(() => import("./Components/BubbleSort"));
+const MergeSortPage = lazy(() => import("./Components/MergeSort"));
+const QuickSortPage = lazy(() => import("./Components/QuickSort"));
+const SelectionSortPage = lazy(() => import("./Components/SelectionSort"));
 const InsertionSortingPage = lazy(() => import("./Components/InsertionSort"));
 
 function App() {

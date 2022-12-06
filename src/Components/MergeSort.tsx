@@ -8,8 +8,6 @@ const MergeSort: React.FC = () => {
   const [algSpeed, setAlgSpeed] = useState<algSpeed>({ ms: 250, speed: "Normal" });
   const [showControls, setShowControls] = useState(true);
   const [numsBeingSwapped, setNumsBeingSwapped] = useState<number[]>([]);
-
-  //@ts-ignore
   async function mergeSort(unsortedArray: number[]) {
     if (unsortedArray.length === mainArr.length) setShowControls(false);
     if (unsortedArray.length <= 1) {
@@ -21,14 +19,12 @@ const MergeSort: React.FC = () => {
     const merged: number[] = await merge(await mergeSort(left), await mergeSort(right));
     if (merged.length === mainArr.length) {
       setMainArr(merged);
-      setShowControls(true)
+      setShowControls(true);
     }
     return merged;
   }
-
   async function merge(left: number[], right: number[]) {
     const resArr = [...left, ...right];
-
     for (let i = 0; i < resArr.length; i++) {
       let minptr = i;
       for (let j = i + 1; j < resArr.length; j++) {
@@ -55,7 +51,7 @@ const MergeSort: React.FC = () => {
   }
 
   async function delayMs(algSpeed: number) {
-    return new Promise((res, rej) => {
+    return new Promise((res) => {
       setTimeout(() => {
         res(1);
       }, algSpeed);

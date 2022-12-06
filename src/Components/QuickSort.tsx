@@ -1,7 +1,6 @@
 import { useState } from "react";
-import { algSpeed } from "../types";
 import { shuffleArray } from "../utilities/ShuffleArray";
-import AlgSpeed from "./AlgSpeed";
+import AlgSpeed, { algSpeed } from "./AlgSpeed";
 
 const QuickSort: React.FC = () => {
   const [mainArr, setMainArr] = useState<number[]>(shuffleArray([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]));
@@ -57,7 +56,7 @@ const QuickSort: React.FC = () => {
   }
 
   async function delayMs(algSpeed: number) {
-    return new Promise((res, rej) => {
+    return new Promise((res) => {
       setTimeout(() => {
         res(1);
       }, algSpeed);
