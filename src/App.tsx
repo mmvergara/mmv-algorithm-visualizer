@@ -10,7 +10,7 @@ const BubbleSortPage = lazy(() => import("./pages/BubbleSortPage"));
 const MergeSortPage = lazy(() => import("./pages/MergeSortPage"));
 const QuickSortPage = lazy(() => import("./pages/QuickSortPage"));
 const SelectionSortPage = lazy(() => import("./pages/SelectionSortPage"));
-const InsertionSortPage = lazy(() => import("./pages/InsertionSortPage"));
+const InsertionSortingPage = lazy(() => import("./pages/InsertionSortPage"));
 
 function App() {
   return (
@@ -22,7 +22,7 @@ function App() {
             <Route path='/' element={<HomePage />} />
             <Route path='/sort/bubble' element={<BubbleSortPage />} />
             <Route path='/sort/selection' element={<SelectionSortPage />} />
-            <Route path='/sort/insertion' element={<InsertionSortPage />} />
+            <Route path='/sort/insertion' element={<InsertionSortingPage />} />
             <Route path='/sort/quick' element={<QuickSortPage />} />
             <Route path='/sort/merge' element={<MergeSortPage />} />
           </Routes>
