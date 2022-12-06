@@ -13,6 +13,7 @@ const InsertionSort: React.FC = () => {
   const [indexesDone, setIndexesDone] = useState<number[]>([]);
 
   const insertionSort = async function () {
+    setShowControls(false);
     const arrP = mainArr.slice();
     const indexesDone = [0];
     for (let i = 1; i < arrP.length; i++) {
@@ -35,6 +36,7 @@ const InsertionSort: React.FC = () => {
       setMainArr(arrP);
       indexesDone.push(indexesDone.length);
       setIndexesDone(indexesDone);
+      setShowControls(true);
     }
 
     setNumsBeingChecked([]);

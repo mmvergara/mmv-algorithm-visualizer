@@ -1,6 +1,4 @@
 import { Link } from "react-router-dom";
-import Loading from "../Components/Loading";
-import AlgorithmLinks from "../Layout/subComponents/AlgorithmLinks";
 
 const HomePage: React.FC = () => {
   return (
