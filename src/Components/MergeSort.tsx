@@ -11,18 +11,17 @@ const MergeSort: React.FC = () => {
 
   //@ts-ignore
   async function mergeSort(unsortedArray: number[]) {
+    if (unsortedArray.length === mainArr.length) setShowControls(false);
     if (unsortedArray.length <= 1) {
       return unsortedArray;
     }
-
     const middle = Math.floor(unsortedArray.length / 2);
     const left = unsortedArray.slice(0, middle);
     const right = unsortedArray.slice(middle);
-
-    // Using recursion to combine the left and right
     const merged: number[] = await merge(await mergeSort(left), await mergeSort(right));
     if (merged.length === mainArr.length) {
       setMainArr(merged);
+      setShowControls(true)
     }
     return merged;
   }
@@ -31,15 +30,12 @@ const MergeSort: React.FC = () => {
     const resArr = [...left, ...right];
 
     for (let i = 0; i < resArr.length; i++) {
-      //find min number in subarray
-      //and place it at ith position
       let minptr = i;
       for (let j = i + 1; j < resArr.length; j++) {
         if (resArr[minptr] > resArr[j]) {
           minptr = j;
         }
       }
-      //swap
       setNumsBeingSwapped([resArr[i], resArr[minptr]]);
       setMainArr((prev) => {
         const newArr = prev.slice();
@@ -55,19 +51,6 @@ const MergeSort: React.FC = () => {
       resArr[i] = resArr[minptr];
       resArr[minptr] = temp;
     }
-    //   leftIndex = 0,
-    //   rightIndex = 0;
-
-    // while (leftIndex < left.length && rightIndex < right.length) {
-    //   if (left[leftIndex] < right[rightIndex]) {
-    //     resultArray.push(left[leftIndex]);
-    //     leftIndex++;
-    //   } else {
-    //     resultArray.push(right[rightIndex]);
-    //     rightIndex++;
-    //   }
-    // }
-    // const result = resultArray.concat(left.slice(leftIndex)).concat(right.slice(rightIndex));
     return resArr;
   }
 
@@ -129,6 +112,7 @@ const MergeSort: React.FC = () => {
           </button>
         )}
       </div>
+      <p className='text-2xl pl-2 pt-2 text-black font-Poppins font-semibold'>Merge Sort</p>
 
       <div className='flex w-[100vw] h-[720px] py-[50px] items-end justify-center transition-all ease-in'>
         {mainArr.map((x, i, arr) => {
@@ -153,7 +137,6 @@ const MergeSort: React.FC = () => {
           );
         })}
       </div>
-      <p className='text-2xl p-1 text-center text-black font-serif'>Merge Sort</p>
     </section>
   );
 };

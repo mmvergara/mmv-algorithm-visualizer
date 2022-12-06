@@ -114,7 +114,7 @@ const QuickSort: React.FC = () => {
           </button>
         )}
       </div>
-
+      <p className='text-2xl pl-2 pt-2 text-black font-Poppins font-semibold'>Quick Sort</p>
       <div className='flex w-[100vw] h-[720px] py-[50px] items-end justify-center transition-all ease-in'>
         {mainArr.map((x, i, arr) => {
           return (
@@ -142,7 +142,6 @@ const QuickSort: React.FC = () => {
           );
         })}
       </div>
-      <p className='text-2xl p-1 text-center text-black font-serif'>Quick Sort</p>
     </section>
   );
 };

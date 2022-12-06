@@ -3,6 +3,9 @@ module.exports = {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      fontFamily:{
+        Poppins:'Poppins, sans-serif'
+      },
       colors: {
         navSecondary: "#111111",
       },

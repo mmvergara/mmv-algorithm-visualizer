@@ -98,8 +98,8 @@ const SelectionSort: React.FC = () => {
           </button>
         )}
       </div>
-
-      <div className='flex w-[100vw] h-[720px] py-[50px] items-end justify-center transition-all ease-in'>
+      <p className='text-2xl pl-2 pt-2 text-black font-Poppins font-semibold'>Selection Sort</p>
+      <div className='flex w-[100vw] h-[720px] py-[30px] items-end justify-center transition-all ease-in'>
         {mainArr.map((x, i, arr) => {
           return (
             <div
@@ -126,7 +126,6 @@ const SelectionSort: React.FC = () => {
           );
         })}
       </div>
-      <p className='text-2xl p-1 text-center text-black font-serif'>Selection Sort</p>
     </section>
   );
 };
