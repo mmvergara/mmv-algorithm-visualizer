@@ -9,13 +9,13 @@ const AlgorithmLinks: React.FC = () => {
         <Link to='/sort/quick'>Quick Sort</Link>
       </li>
       <li>
-        <Link to='/sort/quick'>Quick Sort</Link>
+        <Link to='/sort/insertion'>Insertion Sort</Link>
       </li>
       <li>
-        <Link to='/sort/quick'>Quick Sort</Link>
+        <Link to='/sort/selection'>Selection Sort</Link>
       </li>
       <li>
-        <Link to='/sort/quick'>Quick Sort</Link>
+        <Link to='/sort/merge'>Merge Sort</Link>
       </li>
     </>
   );
