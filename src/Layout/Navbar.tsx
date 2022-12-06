@@ -23,7 +23,7 @@ const Navbar: React.FC = () => {
           </label>
           <ul
             tabIndex={0}
-            className='menu menu-compact dropdown-content mt-3 p-2 shadowrounded-box w-52 bg-black'
+            className='menu menu-compact dropdown-content m-0 p-2 shadowrounded-box w-52 bg-black'
           >
             <AlgorithmLinks />
           </ul>

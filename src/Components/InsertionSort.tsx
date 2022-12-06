@@ -50,10 +50,8 @@ const InsertionSort: React.FC = () => {
       }, algSpeed);
     });
   }
-  const updateAlgSpeedHandler = (algSpeed: algSpeed) => {
-    console.log(algSpeed);
-    setAlgSpeed(algSpeed);
-  };
+  const updateAlgSpeedHandler = (algSpeed: algSpeed) => setAlgSpeed(algSpeed);
+
   const shuffleArrHandler = () => setMainArr((arr) => shuffleArray(arr));
   const changeArrSizeHandle = (e: React.ChangeEvent<HTMLInputElement>) => {
     const arraySize = Number(e.target.value);

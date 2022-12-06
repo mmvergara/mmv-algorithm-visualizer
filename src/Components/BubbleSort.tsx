@@ -17,7 +17,6 @@ const BubbleSort: React.FC = () => {
     const arrP = mainArr.slice();
     for (let i = 0; i < arrP.length; i++) {
       let swapOperations = 0;
-
       for (let j = 0; j < arrP.length - i; j++) {
         setNumBeingChecked([arrP[j], arrP[j - 1]]);
         await delayMs(algSpeed.ms);
@@ -44,11 +43,9 @@ const BubbleSort: React.FC = () => {
     setMainArr(arrP);
     setNumBeingChecked([]);
     setNumsBeingSwapped([]);
-
     await delayMs(2000);
     setIndexesDone([]);
     setShowControls(true);
-    // setOperationOngoing(false)
   };
 
   async function delayMs(algSpeed: number) {
@@ -59,7 +56,6 @@ const BubbleSort: React.FC = () => {
     });
   }
   const updateAlgSpeedHandler = (algSpeed: algSpeed) => {
-    console.log(algSpeed);
     setAlgSpeed(algSpeed);
   };
   const shuffleArrHandler = () => setMainArr((arr) => shuffleArray(arr));

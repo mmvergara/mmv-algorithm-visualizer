@@ -3,46 +3,73 @@ import { algSpeed } from "../types";
 import { shuffleArray } from "../utilities/ShuffleArray";
 import AlgSpeed from "./AlgSpeed";
 
-const SelectionSort: React.FC = () => {
+const MergeSort: React.FC = () => {
   const [mainArr, setMainArr] = useState<number[]>(shuffleArray([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]));
   const [algSpeed, setAlgSpeed] = useState<algSpeed>({ ms: 250, speed: "Normal" });
   const [showControls, setShowControls] = useState(true);
-
-  const [numBeingChecked, setNumBeingChecked] = useState<number>(0);
   const [numsBeingSwapped, setNumsBeingSwapped] = useState<number[]>([]);
-  const [curentLowestNum, setCurrentLowestNum] = useState<number>(0);
 
-  const bubbleSort = async function () {
-    setShowControls(false);
-    let arrP = mainArr.slice();
-    let lastSwapIndex = 0;
-    for (let i = 0; i < arrP.length; i++) {
-      let lowestNumIndex = -1000;
-      setCurrentLowestNum(arrP[lastSwapIndex]);
-      for (let j = lastSwapIndex; j < arrP.length; j++) {
-        await delayMs(algSpeed.ms);
-        setNumBeingChecked(arrP[j]);
-        setNumsBeingSwapped([]);
-        if (arrP[lowestNumIndex] > arrP[j] || lowestNumIndex === -1000) {
-          lowestNumIndex = j;
-          setCurrentLowestNum(arrP[j]);
+  //@ts-ignore
+  async function mergeSort(unsortedArray: number[]) {
+    if (unsortedArray.length <= 1) {
+      return unsortedArray;
+    }
+
+    const middle = Math.floor(unsortedArray.length / 2);
+    const left = unsortedArray.slice(0, middle);
+    const right = unsortedArray.slice(middle);
+
+    // Using recursion to combine the left and right
+    const merged: number[] = await merge(await mergeSort(left), await mergeSort(right));
+    if (merged.length === mainArr.length) {
+      setMainArr(merged);
+    }
+    return merged;
+  }
+
+  async function merge(left: number[], right: number[]) {
+    const resArr = [...left, ...right];
+
+    for (let i = 0; i < resArr.length; i++) {
+      //find min number in subarray
+      //and place it at ith position
+      let minptr = i;
+      for (let j = i + 1; j < resArr.length; j++) {
+        if (resArr[minptr] > resArr[j]) {
+          minptr = j;
         }
       }
-
-      const set = [arrP[lowestNumIndex], arrP[lastSwapIndex]];
-      setNumsBeingSwapped(set);
-
-      let temp = arrP[lowestNumIndex];
-      arrP[lowestNumIndex] = arrP[lastSwapIndex];
-      arrP[lastSwapIndex] = temp;
-      lastSwapIndex++;
-      setMainArr(arrP);
+      //swap
+      setNumsBeingSwapped([resArr[i], resArr[minptr]]);
+      setMainArr((prev) => {
+        const newArr = prev.slice();
+        const resI = newArr.findIndex((x) => x === resArr[i]);
+        const minI = newArr.findIndex((x) => x === resArr[minptr]);
+        const temp = newArr[resI];
+        newArr[resI] = newArr[minI];
+        newArr[minI] = temp;
+        return newArr;
+      });
+      await delayMs(algSpeed.ms);
+      let temp = resArr[i];
+      resArr[i] = resArr[minptr];
+      resArr[minptr] = temp;
     }
-    setNumBeingChecked(0);
-    setNumsBeingSwapped([]);
-    setCurrentLowestNum(0);
-    setShowControls(true);
-  };
+    //   leftIndex = 0,
+    //   rightIndex = 0;
+
+    // while (leftIndex < left.length && rightIndex < right.length) {
+    //   if (left[leftIndex] < right[rightIndex]) {
+    //     resultArray.push(left[leftIndex]);
+    //     leftIndex++;
+    //   } else {
+    //     resultArray.push(right[rightIndex]);
+    //     rightIndex++;
+    //   }
+    // }
+    // const result = resultArray.concat(left.slice(leftIndex)).concat(right.slice(rightIndex));
+    return resArr;
+  }
 
   async function delayMs(algSpeed: number) {
     return new Promise((res, rej) => {
@@ -52,7 +79,6 @@ const SelectionSort: React.FC = () => {
     });
   }
   const updateAlgSpeedHandler = (algSpeed: algSpeed) => setAlgSpeed(algSpeed);
-
   const shuffleArrHandler = () => setMainArr((arr) => shuffleArray(arr));
   const changeArrSizeHandle = (e: React.ChangeEvent<HTMLInputElement>) => {
     const arraySize = Number(e.target.value);
@@ -83,7 +109,12 @@ const SelectionSort: React.FC = () => {
             <button className='btn btn-secondary' onClick={shuffleArrHandler}>
               Shuffle
             </button>
-            <button className='btn btn-accent' onClick={bubbleSort}>
+            <button
+              className='btn btn-accent'
+              onClick={() => {
+                mergeSort(mainArr.slice());
+              }}
+            >
               Sort
             </button>
           </>
@@ -110,12 +141,8 @@ const SelectionSort: React.FC = () => {
               style={{
                 height: `${(x / arr.length) * 100}%`,
                 backgroundColor: `${
-                  numBeingChecked === x
+                  numsBeingSwapped.length === 2 && numsBeingSwapped.includes(x)
                     ? "#411530"
-                    : numsBeingSwapped.length === 2 && numsBeingSwapped.includes(x)
-                    ? "#146c0a"
-                    : curentLowestNum === x
-                    ? "#de4b4b"
                     : "#4bdcde9e"
                 }`,
                 transitionDuration: "0.3s",
@@ -126,9 +153,9 @@ const SelectionSort: React.FC = () => {
           );
         })}
       </div>
-      <p className='text-2xl p-1 text-center text-black font-serif'>Selection Sort</p>
+      <p className='text-2xl p-1 text-center text-black font-serif'>Merge Sort</p>
     </section>
   );
 };
 
-export default SelectionSort;
+export default MergeSort;
