@@ -3,23 +3,37 @@ import {
   getRandomGrid,
   isValidSudoku,
 } from "@/utils/helpers/sudoku-helpers";
+import { useRouter } from "next/router";
 import { SudokuSampleGrids } from "./SudokuSampleGrids";
 import { useEffect, useState } from "react";
 import { wait } from "@/utils/wait";
 import SudokuGrid from "./SudokuGrid";
 
+const speedObj = {
+  0: "instant",
+  1: "fast",
+  400: "medium",
+  800: "slow",
+};
+
 const SudokuSolverPage = () => {
+  const router = useRouter();
   const [grid, setGrid] = useState<number[][]>(emptySudokuGrid);
   const [isSolving, setIsSolving] = useState<boolean>(false);
   const [activeCell, setActiveCell] = useState<number[] | null>(null); // [row, col]
   const [status, setStatus] = useState<string>("");
-  const [speed, setSpeed] = useState<number>(800);
-
+  const [speed, setSpeed] = useState<0 | 1 | 400 | 800>(800);
+  const [stopSolve, setStopSolve] = useState<boolean>(false);
   const solve = async (
     grid: number[][],
     r: number,
     c: number
   ): Promise<boolean> => {
+    if (stopSolve) {
+      setStopSolve(false);
+      setIsSolving(false);
+      return false;
+    }
     if (speed > 0) await wait(speed);
     setGrid(grid);
     setActiveCell([r, c]);
@@ -76,20 +90,44 @@ const SudokuSolverPage = () => {
     setStatus("......");
   };
 
+  const handleChangeSpeed = () => {
+    if (speed === 0) setSpeed(1);
+    else if (speed === 1) setSpeed(400);
+    else if (speed === 400) setSpeed(800);
+    else if (speed === 800) setSpeed(0);
+  };
+
   useEffect(() => {
     handleGetNewGrid();
   }, []);
-
   return (
     <main>
       <section className="flex items-center justify-center flex-col">
         <h1>Sudoku Solver</h1>
         <div>
-          <button className="btn-1 mr-1 my-2" onClick={handleSolveClick}>
+          <button
+            className="btn-1 mr-1 my-2"
+            disabled={isSolving}
+            onClick={handleSolveClick}
+          >
             Start Solve
           </button>
-          <button className="btn-1 ml-1 my-2" onClick={handleGetNewGrid}>
+          <button
+            className="btn-1 ml-1 my-2"
+            disabled={isSolving}
+            onClick={handleGetNewGrid}
+          >
             New Grid
+          </button>{" "}
+          <button
+            className="btn-1 ml-1 my-2"
+            disabled={isSolving}
+            onClick={handleChangeSpeed}
+          >
+            Click to Change Speed: {speedObj[speed]}
+          </button>
+          <button className="btn-1 ml-1 my-2" onClick={() => router.reload()}>
+            Stop Solving
           </button>
         </div>
         <p>{status}</p>
