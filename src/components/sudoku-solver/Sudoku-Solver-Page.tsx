@@ -132,7 +132,8 @@ const SudokuSolverPage = () => {
         </div>
         <p>{status}</p>
       </section>
-      <SudokuGrid sudokuGrid={grid} activeCell={activeCell} />
+
+      <SudokuGrid sudokuGrid={[...grid]}  activeCell={activeCell}/>
     </main>
   );
 };
