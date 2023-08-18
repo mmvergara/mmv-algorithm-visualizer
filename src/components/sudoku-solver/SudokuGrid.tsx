@@ -21,23 +21,18 @@ const SudokuGrid = ({
 
   useEffect(() => {
     // set the canvas size to fit the screen
-    const devicePixelRatio = window.devicePixelRatio || 1;
-    // set the canvas size to fit the screen
-    console.log(window.innerWidth - 20);
-    const handleResize = () => {
-      let newWidth = window.innerWidth - 20;
-      let newHeight = window.innerWidth - 20;
-
+    const setCanvasSize = () => {
+      let newWidth = window.screen.width * 0.94;
+      let newHeight = window.screen.height * 0.94;
       if (newWidth > 600) {
         newWidth = 600;
         newHeight = 600;
       }
-      setWidth(newWidth * devicePixelRatio);
-      setHeight(newHeight * devicePixelRatio);
-    };
-    handleResize();
-    window.addEventListener("resize", handleResize);
 
+      setWidth(newWidth);
+      setHeight(newHeight);
+    };
+    setCanvasSize();
     const canvas = canvasRef.current;
     if (!canvas) return;
 
@@ -126,11 +121,7 @@ const SudokuGrid = ({
         context.strokeStyle = lastContextColor;
       }
     }
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, [sudokuGrid, activeCell, width, height]);
+  }, [sudokuGrid, activeCell]);
 
   return (
     <canvas className="mx-auto" ref={canvasRef} width={width} height={height} />

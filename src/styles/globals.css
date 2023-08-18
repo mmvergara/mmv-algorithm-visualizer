@@ -8,6 +8,7 @@
   padding: 0;
 }
 
+
 @layer components {
   .btn-1 {
     @apply bg-cyan-800 px-4 p-1 rounded-sm;

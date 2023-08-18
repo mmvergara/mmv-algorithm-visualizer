@@ -106,7 +106,7 @@ const SudokuSolverPage = () => {
     <main>
       <section className="flex items-center justify-center flex-col">
         <h1>Sudoku Solver</h1>
-        <div>
+        <div className="flex flex-wrap justify-center items-center">
           <button
             className="btn-1 mr-1 my-2"
             disabled={isSolving}
