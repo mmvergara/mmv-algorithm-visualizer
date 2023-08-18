@@ -10,6 +10,7 @@ export default function Home() {
       className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}
     >
       <Link href="/algorithms/sudoku-solver">Sudoku Solver</Link>
+      <Link href="/algorithms/sorting/bubble-sort">Bubble Sort</Link>
     </main>
   );
 }
