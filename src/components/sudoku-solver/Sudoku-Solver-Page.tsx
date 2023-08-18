@@ -18,11 +18,13 @@ const speedObj = {
 
 const SudokuSolverPage = () => {
   const router = useRouter();
+  const defaultSpeed = router.query.speed as 0 | 1 | 400 | 800 | undefined;
+
   const [grid, setGrid] = useState<number[][]>(emptySudokuGrid);
   const [isSolving, setIsSolving] = useState<boolean>(false);
   const [activeCell, setActiveCell] = useState<number[] | null>(null); // [row, col]
   const [status, setStatus] = useState<string>("");
-  const [speed, setSpeed] = useState<0 | 1 | 400 | 800>(800);
+  const [speed, setSpeed] = useState<0 | 1 | 400 | 800>(defaultSpeed || 400);
   const [stopSolve, setStopSolve] = useState<boolean>(false);
   const solve = async (
     grid: number[][],
@@ -133,7 +135,7 @@ const SudokuSolverPage = () => {
         <p>{status}</p>
       </section>
 
-      <SudokuGrid sudokuGrid={[...grid]}  activeCell={activeCell}/>
+      <SudokuGrid sudokuGrid={[...grid]} activeCell={activeCell} />
     </main>
   );
 };

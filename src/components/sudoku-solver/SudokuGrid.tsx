@@ -14,8 +14,9 @@ const SudokuGrid = ({
 
   const canvasConfig = {
     textColor: "white",
-    backgroundColor: "hsl(194,70%,17%)",
-    highlightedColor: "hsl(194,70%,27%)",
+    backgroundColor: "#116A7B",
+    highlightedColor: "hsl(194,70%,17%)",
+    linesColor: "hsl(194,70%,17%)",
   };
 
   useEffect(() => {
@@ -79,6 +80,7 @@ const SudokuGrid = ({
     // Draw the grid
     context.lineWidth = 1;
     for (let i = 0; i <= 9; i++) {
+      context.strokeStyle = canvasConfig.linesColor;
       const xPos = i * cellSize;
       const yPos = i * cellSize;
       context.beginPath();
