@@ -10,7 +10,7 @@
 
 @layer components {
   .btn-1 {
-    @apply bg-cyan-800 px-4 p-1 rounded-sm;
+    @apply bg-cyan-800 hover:bg-cyan-700 px-4 p-1 rounded-sm;
   }
   .arrEl {
     @apply w-[40px] font-semibold text-black flex items-end justify-center;

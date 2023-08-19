@@ -7,6 +7,7 @@ import useRange from "@/hooks/useRange";
 
 const SelectionSortPage = () => {
   const [speed, speedUI] = useSortingSpeed();
+  const [status, setStatus] = useState<string>("Selection Sort");
   const [array, setArray] = useState<number[]>(createArray(10));
   const [colors, setColors] = useState<{ [key: number]: string }>({});
   const [isSorting, setIsSorting] = useState<boolean>(false);
@@ -16,12 +17,15 @@ const SelectionSortPage = () => {
     for (let i = 0; i < arr.length; i++) {
       let minIndex = i;
       for (let j = i; j < arr.length; j++) {
+        setStatus(`Finding Min: ${arr[minIndex]}`);
         setColors({ [array[minIndex]]: "#A1C181", [array[j]]: "#619B8A" });
-        await wait(speed);
         if (arr[j] < arr[minIndex]) {
+          setStatus(`New Min found: ${arr[j]}`);
           minIndex = j;
         }
+        await wait(speed);
       }
+      setStatus(`Swapping ${arr[minIndex]} and ${arr[i]}`);
       setColors({ [array[minIndex]]: "blue", [array[i]]: "blue" });
       [arr[i], arr[minIndex]] = [arr[minIndex], arr[i]];
       setArray([...arr]);
@@ -31,6 +35,7 @@ const SelectionSortPage = () => {
   };
 
   const handleShuffle = () => {
+    if (isSorting) return;
     setArray((a) => {
       const arr = [...a];
       return arr.sort(() => Math.random() - 0.5);
@@ -51,7 +56,7 @@ const SelectionSortPage = () => {
 
   return (
     <>
-      <div className="flex flex-wrap bg-[hsl(216,28%,10%)] justify-center items-center gap-4 py-2">
+      <div className="flex flex-wrap  justify-center items-center gap-4 py-4">
         <div className="p-1 rounded-md">{arrayLengthUi}</div>
         <div className="p-1 rounded-md">{speedUI}</div>
         <button className="btn-1" onClick={handleShuffle}>
@@ -61,7 +66,7 @@ const SelectionSortPage = () => {
           Sort
         </button>
       </div>
-
+      <h1 className="text-center text-2xl">{status}</h1>
       <Bars array={array} colors={colors} />
     </>
   );
