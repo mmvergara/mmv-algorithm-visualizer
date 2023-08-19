@@ -1,48 +1,29 @@
-import { getRandomValues } from "crypto";
-import { useState, useEffect } from "react";
 interface props {
   array: number[];
   colors: { [key: number]: string };
 }
 const Bars = ({ array, colors }: props) => {
-  const [width, setWidth] = useState<number>(0);
-  const [height, setHeight] = useState<number>(0);
-  useEffect(() => {
-    const setCanvasSize = () => {
-      let newWidth = window.screen.width * 0.94;
-      let newHeight = window.screen.height * 0.44;
-
-      setWidth(newWidth);
-      setHeight(newHeight);
-    };
-    setCanvasSize();
-  }, []);
-
   return (
-    <svg width={width} height={height} className="mx-auto">
-      <g className="text-center">
-        {array.map((value, index, arr) => {
-          const elementHeight = (value / Math.max(...arr)) * height;
-          const elementWidth = width / arr.length;
-          const centerX = index * elementWidth;
-          const centerY = height - elementHeight;
-          let c = colors[value];
-          if (!c) c = "hsl(194,70%,77%)";
-          return (
-            <rect
-              className="BarsTrans"
-              key={index}
-              x={centerX}
-              y={centerY}
-              width={elementWidth}
-              height={elementHeight}
-              fill={c}
-              stroke={c}
-            />
-          );
-        })}
-      </g>
-    </svg>
+    <section className="flex w-[100vw] h-[720px] py-[50px] items-end justify-center transition-all ease-in">
+      {array.map((x, i, arr) => {
+        return (
+          <div
+            key={i}
+            className={`arrEl px-auto ${
+              arr.length < 140 && "border"
+            } text-2xl transition-height ease-in`}
+            style={{
+              height: `${(x / arr.length) * 100}%`,
+              backgroundColor: colors[x] ? colors[x] : "#a7c7e7",
+              borderColor: colors[x] ? colors[x] : "#a7c7e7",
+              transitionDuration: "0.3s",
+            }}
+          >
+            {arr.length < 25 && x}
+          </div>
+        );
+      })}
+    </section>
   );
 };
 

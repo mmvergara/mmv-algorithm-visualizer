@@ -1,5 +1,15 @@
 # MMV Algorithm Visualizer
+```
 
+              numsBeingSwapped.length === 2 && numsBeingSwapped.includes(x)
+                ? "#0b5402"
+                : numBeingChecked.includes(x)
+                ? "#411530"
+                : indexesDone.includes(i)
+                ? "#d5ea4eda"
+                : "#4bdcde9e"
+
+```
 To Do's
 
 - ### Randoms

@@ -12,6 +12,9 @@
   .btn-1 {
     @apply bg-cyan-800 px-4 p-1 rounded-sm;
   }
+  .arrEl {
+    @apply w-[40px] font-semibold text-black flex items-end justify-center;
+  }
 }
 
 :root {
@@ -25,6 +28,8 @@
   background-color: #242424;
   background-color: #0d1117;
 
+  
+
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -36,4 +41,3 @@ body {
   height: 100vh;
   width: 100vw;
 }
-

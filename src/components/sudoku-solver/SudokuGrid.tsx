@@ -24,7 +24,6 @@ const SudokuGrid = ({
     const setCanvasSize = () => {
       let newWidth = window.screen.width * 0.94;
       let newHeight = window.screen.height * 0.94;
-      console.log(newWidth, newHeight)
       if (newWidth > 600) {
         newWidth = 600;
         newHeight = 600;
