@@ -9,7 +9,8 @@ const SelectionSortPage = () => {
   const [speed, speedUI] = useSortingSpeed();
   const [array, setArray] = useState<number[]>(createArray(10));
   const [colors, setColors] = useState<{ [key: number]: string }>({});
-  const [arrayLength, arrayLengthUi] = useRange(10, 500, 15, "📊");
+  const [isSorting, setIsSorting] = useState<boolean>(false);
+  const [arrayLength, arrayLengthUi] = useRange(10, 500, 10, "📊");
 
   const selectionSort = async (arr: number[]) => {
     for (let i = 0; i < arr.length; i++) {
@@ -36,11 +37,15 @@ const SelectionSortPage = () => {
     });
   };
   const handleStartSort = async () => {
+    if (isSorting) return;
+    setIsSorting(true);
     await selectionSort(array);
     setColors({});
+    setIsSorting(false);
   };
 
   useEffect(() => {
+    if (isSorting) return;
     setArray(createArray(arrayLength));
   }, [arrayLength]);
 

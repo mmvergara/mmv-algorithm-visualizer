@@ -4,7 +4,7 @@ interface props {
 }
 const Bars = ({ array, colors }: props) => {
   return (
-    <section className="flex w-[100vw] h-[720px] py-[50px] items-end justify-center transition-all ease-in">
+    <section className="flex h-[520px] py-[50px] items-end justify-center transition-all ease-in">
       {array.map((x, i, arr) => {
         return (
           <div

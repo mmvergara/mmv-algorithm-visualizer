@@ -6,8 +6,7 @@ const useRange = (
   defaultValue: number,
   text: string
 ): [number, JSX.Element] => {
-  const [value, setValue] = useState<number>(max);
-
+  const [value, setValue] = useState<number>(defaultValue);
   const rangeUI = (
     <>
       <p className="text-2xl">
