@@ -2,8 +2,9 @@ import { getRandomValues } from "crypto";
 import { useState, useEffect } from "react";
 interface props {
   array: number[];
+  colors: { [key: number]: string };
 }
-const Bars = ({ array }: props) => {
+const Bars = ({ array, colors }: props) => {
   const [width, setWidth] = useState<number>(0);
   const [height, setHeight] = useState<number>(0);
   useEffect(() => {
@@ -25,16 +26,18 @@ const Bars = ({ array }: props) => {
           const elementWidth = width / arr.length;
           const centerX = index * elementWidth;
           const centerY = height - elementHeight;
+          let c = colors[value];
+          if (!c) c = "hsl(194,70%,77%)";
           return (
             <rect
-              className="transition-height duration-300 ease-in"
+              className="BarsTrans"
               key={index}
               x={centerX}
               y={centerY}
               width={elementWidth}
               height={elementHeight}
-              fill="hsl(194,70%,77%)"
-              stroke="hsl(194,70%,77%)"
+              fill={c}
+              stroke={c}
             />
           );
         })}

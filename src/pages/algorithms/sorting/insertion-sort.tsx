@@ -1,3 +1,2 @@
-import InsertionSortPage from "@/components/sorting-algs/insertion-sort/Insertion-Sort-Page";
-const MainPageInsertionSort = ()=> <InsertionSortPage/>;
+const MainPageInsertionSort = () => <></>;
 export default MainPageInsertionSort;
