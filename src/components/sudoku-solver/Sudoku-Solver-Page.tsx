@@ -106,23 +106,25 @@ const SudokuSolverPage = () => {
     <main>
       <section className="flex items-center justify-center flex-col">
         <h1>Sudoku Solver</h1>
-        <div className="flex flex-wrap justify-center items-center">
+        <div className="flex flex-wrap flex-col justify-center items-center">
+          <div>
+            <button
+              className="btn-1 mr-1 my-2"
+              disabled={isSolving}
+              onClick={handleSolveClick}
+            >
+              Start Solve
+            </button>
+            <button
+              className="btn-1 ml-1 my-2"
+              disabled={isSolving}
+              onClick={handleGetNewGrid}
+            >
+              New Grid
+            </button>
+          </div>
           <button
-            className="btn-1 mr-1 my-2"
-            disabled={isSolving}
-            onClick={handleSolveClick}
-          >
-            Start Solve
-          </button>
-          <button
-            className="btn-1 ml-1 my-2"
-            disabled={isSolving}
-            onClick={handleGetNewGrid}
-          >
-            New Grid
-          </button>{" "}
-          <button
-            className="btn-1 ml-1 my-2"
+            className="btn-1 ml-1 my-2 w-max"
             disabled={isSolving}
             onClick={handleChangeSpeed}
           >
