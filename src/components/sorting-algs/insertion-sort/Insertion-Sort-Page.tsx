@@ -34,7 +34,13 @@ const InsertionSortPage = () => {
         </button>
         <button
           className="btn-1"
-          onClick={() => setArray((a) => shuffleArray(a))}
+          onClick={() =>
+            setArray((a) => {
+              const temp = [...a];
+              shuffleArray(temp);
+              return temp;
+            })
+          }
         >
           Shuffle Array
         </button>
