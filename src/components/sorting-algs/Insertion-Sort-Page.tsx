@@ -5,33 +5,29 @@ import Bars from "./Bars";
 import useSortingSpeed from "@/hooks/useSortingSpeed";
 import useRange from "@/hooks/useRange";
 
-const BubbleSortPage = () => {
+const InsertionSortPage = () => {
   const [speed, speedUI] = useSortingSpeed();
-  const [status, setStatus] = useState<string>("Bubble Sort");
+  const [status, setStatus] = useState<string>("Insertion Sort");
   const [array, setArray] = useState<number[]>(createArray(10));
   const [colors, setColors] = useState<{ [key: number]: string }>({});
   const [isSorting, setIsSorting] = useState<boolean>(false);
   const [arrayLength, arrayLengthUi] = useRange(10, 500, 10, "📊");
 
-  const bubbleSort = async (arrayIn: number[]) => {
+  const insertionSort = async (arrayIn: number[]) => {
     let arr = [...arrayIn];
-    for (let i = 1; i < arr.length; i++) {
-      let swaps = 0;
-      setStatus(`Pass ${i}`);
-      for (let j = 0; j < arr.length - i; j++) {
-        setColors({ [arr[j]]: "#FCCA46", [arr[j + 1]]: "#FE7F2D" });
-        if (arr[j] > arr[j + 1]) {
-          swaps++;
-          setStatus(`Swapping ${arr[j]} and ${arr[j + 1]}`);
-          [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
-          setColors({ [arr[j]]: "#FE7F2D", [arr[j + 1]]: "#FCCA46" });
-          setArray([...arr]);
-        }
+    for (let i = 0; i < arr.length; i++) {
+      let j = i;
+      setStatus(`Inserting ${arr[i]}`);
+      await wait(100);
+      while (j > 0 && arr[j] < arr[j - 1]) {
+        setStatus(`Swapping ${arr[j]} and ${arr[j - 1]}`);
+        setColors({ [arr[j]]: "#FCCA46", [arr[j - 1]]: "#FE7F2D" });
+        [arr[j], arr[j - 1]] = [arr[j - 1], arr[j]];
+        j -= 1;
+        setArray(arr);
         await wait(speed);
       }
-      if (swaps === 0) break;
     }
-
     return arr;
   };
 
@@ -45,8 +41,8 @@ const BubbleSortPage = () => {
   const handleStartSort = async () => {
     if (isSorting) return;
     setIsSorting(true);
-    await bubbleSort(array);
-    setStatus("Bubble Sort");
+    await insertionSort(array);
+    setStatus("Insertion Sort");
     setColors({});
     setIsSorting(false);
   };
@@ -74,4 +70,4 @@ const BubbleSortPage = () => {
   );
 };
 
-export default BubbleSortPage;
+export default InsertionSortPage;
