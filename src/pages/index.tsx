@@ -6,6 +6,7 @@ export default function Home() {
     { href: "/algorithms/sorting/bubble-sort", text: "Bubble Sort" },
     { href: "/algorithms/sorting/insertion-sort", text: "Insertion Sort" },
     { href: "/algorithms/sorting/selection-sort", text: "Selection Sort" },
+    { href: "/algorithms/sorting/merge-sort", text: "Merge Sort" },
   ];
   return (
     <main className="text-white flex flex-col overflow-hidden">

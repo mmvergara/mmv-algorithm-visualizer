@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const useSortingSpeed = () => {
+const useSortingSpeed = (): [number, JSX.Element] => {
   const [speed, setSpeed] = useState<number>(251);
   const [uiSpeed, setUISpeed] = useState<number>(750);
   const speedUI = (
