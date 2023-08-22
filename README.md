@@ -1,5 +1,5 @@
 # MMV Algorithm Visualizer
-- Simple algorithm visualizer made with react 
+- Algorithm visualizer made with react 
 
 # Todo
 - bubble sort sorted colors
