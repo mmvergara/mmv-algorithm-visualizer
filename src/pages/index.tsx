@@ -7,6 +7,7 @@ export default function Home() {
     { href: "/algorithms/sorting/insertion-sort", text: "Insertion Sort" },
     { href: "/algorithms/sorting/selection-sort", text: "Selection Sort" },
     { href: "/algorithms/sorting/merge-sort", text: "Merge Sort" },
+    { href: "/algorithms/n-queens", text: "N Queens" },
   ];
   return (
     <main className="text-white flex flex-col overflow-hidden">
