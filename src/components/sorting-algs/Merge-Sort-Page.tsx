@@ -1,13 +1,12 @@
 import { useState, useEffect } from "react";
 import { createArray } from "@/utils/helpers/sorting-helpers";
 import { wait } from "@/utils/wait";
-import Bars from "./Bars";
 import useSortingSpeed from "@/hooks/useSortingSpeed";
 import useRange from "@/hooks/useRange";
 
 const MergeSortpage = () => {
   const [speed, speedUI] = useSortingSpeed();
-  const [status, setStatus] = useState<string>("Merge");
+  const [status, setStatus] = useState<string>("Merge Sort");
   const [array, setArray] = useState<number[]>(createArray(10));
   const [array2, setArray2] = useState<number[]>([]);
   const [arrBeingMerged1, setArrBeingMerged1] = useState<number[]>([]);

@@ -1,5 +1,10 @@
 # MMV Algorithm Visualizer
 
+
+# Todo
+- bubble sort sorted colors
+- 
+
 - ### Randoms
 
   - [x] Sudoku Solver
